@@ -1,0 +1,41 @@
+#ex 1
+
+#!/bin/bash
+file=test.txt
+var=`cat $file | tr '[:lower:]' '[:upper:]' >file1 | sed -i -e "/^$/d" file1`
+
+#ex 2
+
+#!/bin/bash
+LOG=/var/log/auth.log.1
+tail -0f $LOG | grep Authentication\ failure
+
+#ex 3
+#!/bin/bash
+
+mkdir {2010..2017}
+    for a in {2010..2017}
+do    
+    mkdir -p $a/{01..12}
+done
+    for b in {2010..2017}
+do
+    for c in {01..12}
+do
+    echo Файл"$c" > $b/$c/file"$c"
+done
+done
+
+#ex4
+anton@cuda:/var/log# crontab -e
+0 0 * * * /usr/bin/du -sh /home/* > /home/anton/u_space.txt 2>/dev/null
+
+#ex5
+#!/bin/bash
+
+for file in *
+do
+OWNER=$(ls -lA $file | awk '{print $3}')
+mkdir $OWNER
+cp $file $OWNER
+chown $OWNER $OWNER/$file

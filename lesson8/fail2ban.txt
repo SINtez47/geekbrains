@@ -1,0 +1,43 @@
+
+[DEFAULT]
+# "ignoreip" can be an IP address, a CIDR mask or a DNS host. Fail2ban will not
+# ban a host which matches an address in this list. Several addresses can be
+# defined using space separator.
+# ignoreip = 127.0.0.1
+
+# "bantime" is the number of seconds that a host is banned.
+bantime  = 86400
+
+# A host is banned if it has generated "maxretry" during the last "findtime"
+# seconds.
+findtime  = 3600
+
+# "maxretry" is the number of failures before a host get banned.                                                                                                
+Maxretry = 3                                                                                                                                                    
+#For the Ubuntu/Debian users this section is a little bit different:                                                                                            
+    [DEFAULT]                                                                                                                                                   
+                                                                                                                                                                
+# "ignoreip" can be an IP address, a CIDR mask or a DNS host                                                                                                    
+#     ignoreip = 127.0.0.1/8                                                                                                                                    
+#     bantime  = 600                                                                                                                                            
+#     maxretry = 3                                                                                                                                              
+                                                                                                                                                                
+# "backend" specifies the backend used to get files modification. Available                                                                                     
+# options are "gamin", "polling" and "auto".                                                                                                                    
+# yoh: For some reason Debian shipped python-gamin didn't work as expected                                                                                      
+#      This issue left ToDo, so polling is default backend for now
+backend = auto
+
+#
+# Destination email address used solely for the interpolations in
+# jail.{conf,local} configuration files.
+destemail = root@localhost
+
+[ssh]
+
+enabled  = true
+filter   = sshd
+action   = iptables[name=SSH, port=ssh, protocol=tcp]
+logpath  = /var/log/secure
+maxretry = 3
+ignoreip = 192.168.0.0/16

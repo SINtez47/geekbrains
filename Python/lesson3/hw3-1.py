@@ -1,4 +1,4 @@
-from my_functions import my_div
+tafrom my_functions import my_div
 
 input_patterns = (
     ('Введите делимое: ', float,),
